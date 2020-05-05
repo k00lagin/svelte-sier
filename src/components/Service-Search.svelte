@@ -288,7 +288,7 @@
 
 <button
   type="button"
-  class="extra service-search-trigger icon-magic-wand"
+  class="service-search-trigger icon-magic-wand"
   on:click={toggleDialog} />
 <dialog class="service-search-dialog" bind:this={serviceSearchDialog}>
   <header class="dialog-header">
