@@ -1,6 +1,7 @@
 import App from './components/App.svelte';
 import ServiceSearch from './components/Service-Search.svelte';
 import AppSettings from './components/Settings.svelte';
+import ClientSearch from './components/Client-Search.svelte';
 
 function checkLoadState() {
 	if (!document.querySelector('.navigation.navigation-main')) {
@@ -39,4 +40,10 @@ function init() {
 			localStorage.setItem('catalogueDocuments', JSON.stringify(docs));
 		}
 	}
+	if (document.querySelector('input[placeholder="Поиск по ФИО, СНИЛС или номеру мобильного телефона в реестре клиентов..."]:not(.enhanced)')) {
+		var clientSearch = new ClientSearch({
+			target: document.querySelector('input[placeholder="Поиск по ФИО, СНИЛС или номеру мобильного телефона в реестре клиентов..."]').parentElement
+		});
+	}
+}
 export default app;
