@@ -1,0 +1,40 @@
+{
+	"name": "svelte-sier",
+	"version": "0.0.1",
+	"private": true,
+	"description": "Make SIER great again!",
+	"scripts": {
+		"build": "rollup -c",
+		"dev": "rollup -c -w",
+		"start": "sirv public"
+	},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/k00lagin/svelte-sier.git"
+  },
+  "keywords": [
+		"svelte",
+		"enhanced",
+    "sier",
+    "selfhelp",
+    "government_it_sux"
+  ],
+  "author": "Vsevolod Kulagin <k00lagin>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/k00lagin/svelte-sier/issues"
+  },
+  "homepage": "https://github.com/k00lagin/svelte-sier#readme",
+	"devDependencies": {
+		"@rollup/plugin-commonjs": "^11.0.0",
+		"@rollup/plugin-node-resolve": "^7.0.0",
+		"rollup": "^1.20.0",
+		"rollup-plugin-livereload": "^1.3.0",
+		"rollup-plugin-svelte": "^5.0.3",
+		"rollup-plugin-terser": "^5.1.2",
+		"svelte": "^3.0.0"
+	},
+	"dependencies": {
+		"sirv-cli": "^0.4.4"
+	}
+}
