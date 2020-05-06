@@ -40,7 +40,7 @@ function init() {
 			localStorage.setItem('catalogueDocuments', JSON.stringify(docs));
 		}
 	}
-	if (document.querySelector('input[placeholder="Поиск по ФИО, СНИЛС или номеру мобильного телефона в реестре клиентов..."]:not(.enhanced)')) {
+	if (document.querySelector('input[placeholder="Поиск по ФИО, СНИЛС или номеру мобильного телефона в реестре клиентов..."]:not(.enhanced-client-search)')) {
 		var clientSearch = new ClientSearch({
 			target: document.querySelector('input[placeholder="Поиск по ФИО, СНИЛС или номеру мобильного телефона в реестре клиентов..."]').parentElement
 		});
