@@ -3,10 +3,12 @@
 	import { toCyrillic } from "../helpers.js";
 	let query = '';
 	let state = 'INITIAL';
+	let recentClients = [];
+	fetchRecentAppeals();
 	let search = document.querySelector('input[placeholder="Поиск по ФИО, СНИЛС или номеру мобильного телефона в реестре клиентов..."]');
 	search.classList.add('enhanced');
 	search.addEventListener('input', handleQueryChange)
-	$: popularSurnames = getPopularSurnames(query);
+	$: popularSurnames = [...(recentClients.filter(client => client.lastName.toLowerCase().indexOf(query.toLowerCase()) === 0).map(client => client.lastName)), ...getPopularSurnames(query)];
 	function handleQueryChange() {
 		query = search.value;
 		if (query.startsWith('+')) {
@@ -34,6 +36,35 @@
 		if (query.match(/[a-zA-Z]/)) {
 			query = toCyrillic(query);
 		}
+	}
+	async function fetchRecentAppeals() {
+		let appeals = await fetchData({
+			url: 'api/v1/search/appeals',
+			body: JSON.stringify({
+				"search": {
+					"search": [{
+						"field": "unit.id",
+						"operator": "eq",
+						"value": JSON.parse(localStorage.currentOrganization)._id
+					},
+					{
+						"field": "userCreation.login",
+						"operator": "eq",
+						"value": JSON.parse(localStorage.user).login
+					}]
+				},
+				"sort": "dateLastModification,DESC"
+			})
+		});
+		appeals.content.forEach(appeal => {
+			appeal.objects.forEach(object => {
+				if (object.data && object.data.person && object.data.person.reestrId && !recentClients.some(client => client.reestrId === object.data.person.reestrId)) {
+					// TODO: подгружать данные отдельно, даже если нет reestrId
+					recentClients.push(object.data.person);
+				}
+			});
+		});
+		console.log(recentClients);
 	}
 </script>
 
