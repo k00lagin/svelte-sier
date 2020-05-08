@@ -76,7 +76,14 @@ export function toCyrillic(str) {
 	for (let index = 0; index < str.length; index++) {
 		if (replacer[str[index]]) {
 			str = str.split(str[index]).join(replacer[str[index]]);
-		}		
+		}
 	}
 	return str;
+}
+
+export function toTitleCase(str) {
+	if (str) {
+		return str.substr(0,1).toUpperCase() + str.substr(1).toLowerCase();
+	}
+	return '';
 }

@@ -71,22 +71,24 @@ export function getPopularSurnames(substring) {
 	return surnames.reduce((filteredList, surname) => {
 		if (filteredList.length < 10 && surname.indexOf(substring) === 0) {
 			let names = [];
-			names.push(surname);
+			names.push({value: surname});
 			if (surname.includes('ё')) {
-				names.push(surname.replace('ё','е'));
+				names.push({value: surname.replace('ё','е')});
 			}
 			names.map(name => {
-				switch (name.substring(name.length - 2)) {
+				switch (name.value.substring(name.value.length - 2)) {
 					case 'ов':
 					case 'ев':
 					case 'ёв':
 					case 'ин':
 					case 'ын':
-						names.push(name + 'а');
+						name.gender = 'male';
+						names.push({value: name.value + 'а', gender: 'female'});
 						break;
 					case 'ий':
 					case 'ый':
-						names.push(name.substring(0, name.length - 2) + 'ая');
+						name.gender = 'male'
+						names.push({value: name.value.substring(0, name.value.length - 2) + 'ая', gender: 'female'});
 				}
 			});
 			return [...filteredList, ...names];
