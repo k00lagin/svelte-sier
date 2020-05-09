@@ -1,6 +1,6 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-	export let value, view;
+	export let value = '', view = '';
 	let previousValue, tempValue;
 	const dispatch = createEventDispatcher();
 	let isEditing = false;
@@ -21,7 +21,7 @@
 	}
 	function applyChanges() {
 		value = tempValue;
-		isEditing = false;		
+		isEditing = false;
 		dispatch('change', {});
 	}
 	function handleKeyUp(e) {
@@ -47,7 +47,7 @@
 	.alias:focus {
 		color: rgb(60, 60, 60);
 		border-bottom: 0.5px dashed;
-	}	
+	}
 	.new-alias {
 		border: 0;
 		background-color: transparent;
