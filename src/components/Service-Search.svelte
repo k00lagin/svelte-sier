@@ -1,10 +1,13 @@
 <script>
-	import { fetchData, alias } from "../sier.js";
+	import { fetchData, alias, favoriteServices } from "../sier.js";
 	import Alias from "./Alias.svelte"
+	import FavoriteButton from "./Favorite-Button.svelte"
   let serviceSearchInput, serviceSearchDialog;
   let query = "";
   let aliases = alias.get();
 	$: alias.save(aliases);
+  let faves = favoriteServices.get();
+	$: favoriteServices.save(faves);
   function toggleDialog() {
     if (serviceSearchDialog.hasAttribute('open')) {
 			serviceSearchDialog.removeAttribute('open');
@@ -168,7 +171,20 @@
       default:
         filterServices();
     }
-  }
+	}
+	function handleFaveChange(e) {
+		if (e.currentTarget.checked) {
+			faves.push(e.currentTarget.value);
+			faves = faves;
+		}
+		else {
+			let index = faves.indexOf(e.currentTarget.value);
+			if (index >= 0) {
+				faves.splice(index, 1);
+				faves = faves;
+			}
+		}
+	}
 </script>
 
 <style>
@@ -281,8 +297,19 @@
     left: 2px;
     top: 0;
 	}
-	.service-item:hover :global(.new-alias) {
+	.service-item:hover :global(.new-alias),
+	.service-item:hover :global(.fave-label) {
 		visibility: visible;
+	}
+	.favorite-list {
+		display: flex;
+		flex-flow: row wrap;
+    list-style: none;
+    padding: var(--es-05gap) var(--es-2gap);
+    margin: 0;
+	}
+	.favorite-item:not(:last-child) {
+		margin-right: var(--es-gap);
 	}
 </style>
 
@@ -303,6 +330,27 @@
     on:keyup={handleKeyUp}
     bind:value={query}
     bind:this={serviceSearchInput} />
+	{#await services}
+		Загрузка...
+	{:then services}
+		{#if faves.length > 0}
+			<ul class="favorite-list">
+				{#each faves as fave}
+					<li class="favorite-item">
+						<a class="favorite" href={(() => {
+							let service = services.find(service => service.sid == fave);
+							if (service) {
+								return `http://172.153.153.48/ais/appeals/create/${service.id}`;
+							}
+							else {
+								return '#';
+							}
+						})()}>{aliases[fave] || fave}</a>
+					</li>
+				{/each}
+			</ul>
+		{/if}
+	{/await}
   <ul class="service-list-node">
     {#await services}
       <li class="service-item empty">Загрузка...</li>
@@ -322,6 +370,7 @@
             {@html service.name}
           </a>
 					<Alias bind:value={aliases[service.sid]}  view={service.alias || aliases[service.sid]} on:change={filterServices}/>
+					<FavoriteButton on:change={handleFaveChange} value={service.sid} checked={faves.indexOf(service.sid) !== -1}></FavoriteButton>
         </li>
       {:else}
 				<li class="service-item empty">Услуги не найдены...</li>

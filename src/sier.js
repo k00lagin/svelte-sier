@@ -62,6 +62,14 @@ export let alias = {
 		return JSON.parse(GM_getValue('enhanced-sier_aliases',`{"719747": "прописка","723392": "права","727489": "снилс"}`));
 	}
 }
+export let favoriteServices = {
+	save: function (arr) {
+		GM_setValue('enhanced-sier_favorite-services', JSON.stringify(arr));
+	},
+	get: function () {
+		return JSON.parse(GM_getValue('enhanced-sier_favorite-services',`["719747","723392","727489"]`));
+	}
+}
 export function getPopularSurnames(substring) {
 	if (!substring) {
 		return [];
