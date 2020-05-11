@@ -19,6 +19,7 @@
 		color: rgb(171, 171, 171);
 		box-sizing: border-box;
 		visibility: hidden;
+		cursor: default;
 	}
 	.fave-label:hover {
 		background-color: rgba(38, 50, 56, .2);
@@ -28,9 +29,9 @@
 	}
 </style>
 
-<label class="fave-label" class:checked>
+<label class="fave-label" class:checked role="button" aria-label={checked?'Удалить из избранного':'Добавить в избранное'} title={checked?'Удалить из избранного':'Добавить в избранное'}>
 	{#if checked}
-		<svg style="width:16px;height:16px" viewBox="0 0 24 24">
+		<svg style="width:16px;height:16px" viewBox="0 0 24 24" role="presentation">
 			<path
 				fill="currentColor"
 				d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3
@@ -38,7 +39,7 @@
 				22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z" />
 		</svg>
 	{:else}
-		<svg style="width:16px;height:16px" viewBox="0 0 24 24">
+		<svg style="width:16px;height:16px" viewBox="0 0 24 24" role="presentation">
 			<path
 				fill="currentColor"
 				d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5
