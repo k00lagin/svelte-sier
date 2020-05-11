@@ -63,6 +63,7 @@
 		color: rgb(171, 171, 171);
 		box-sizing: border-box;
 		visibility: hidden;
+		cursor: default;
 	}
 	.new-alias:hover {
 		background-color: rgba(38, 50, 56, .2);
@@ -83,6 +84,7 @@
 		margin-top: -6px;
 		box-shadow: 3px 0 4px -2px rgba(0,0,0,.2), 0px 3px 4px -2px rgba(0,0,0,.2);
 		padding-left: var(--es-gap);
+		z-index: 1;
 	}
 </style>
 
