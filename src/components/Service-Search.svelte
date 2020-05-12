@@ -136,10 +136,10 @@
         break;
       case "Enter":
         if (
-          document.querySelector(".service-search-dialog li:first-child > a")
+          document.querySelector(".service-search-dialog li.service-item:first-child > a")
         ) {
           document
-            .querySelector(".service-search-dialog li:first-child > a")
+            .querySelector(".service-search-dialog li.service-item:first-child > a")
             .click();
         }
         break;
@@ -158,7 +158,7 @@
       case "9":
         if (isCtrlPressed) {
           let link = document.querySelector(
-            `.service-search-dialog li:nth-child(${
+            `.service-search-dialog li.service-item:nth-child(${
               e.key === "0" ? "10" : e.key
             }) > a`
           );
