@@ -1,6 +1,6 @@
 {
 	"name": "svelte-sier",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"private": true,
 	"description": "Make SIER great again!",
 	"scripts": {
