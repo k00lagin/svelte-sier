@@ -7,7 +7,7 @@
 	let input, inputWidth = 128, isParentTooTight;
 	function edit(e) {
 		let buttonGeometry = e.currentTarget.getClientRects()[0];
-		let containerGeometry = e.currentTarget.parentElement.getClientRects()[0];
+		let containerGeometry = e.currentTarget.parentElement.parentElement.getClientRects()[0];
 		if (containerGeometry.left + containerGeometry.width - (buttonGeometry.left + inputWidth) < 0) {
 			isParentTooTight = true;
 		}
@@ -77,6 +77,7 @@
 	input {
 		box-sizing: border-box;
 		height: 32px;
+		width: 128px;
 		position: absolute;
 		border: 1px solid lightgrey;
 		border-radius: 4px;

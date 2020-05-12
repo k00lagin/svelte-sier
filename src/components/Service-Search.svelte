@@ -374,8 +374,10 @@
             href={`http://172.153.153.48/ais/appeals/create/${service.id}`}>
             {@html service.name}
           </a>
-					<Alias bind:value={aliases[service.sid]}  view={service.alias || aliases[service.sid]} on:change={filterServices}/>
-					<FavoriteButton on:change={handleFaveChange} value={service.sid} checked={faves.indexOf(service.sid) !== -1}></FavoriteButton>
+					<span style="min-width: 52px;display: inline-block;">
+						<Alias bind:value={aliases[service.sid]}  view={service.alias || aliases[service.sid]} on:change={filterServices}/>
+						<FavoriteButton on:change={handleFaveChange} value={service.sid} checked={faves.indexOf(service.sid) !== -1}></FavoriteButton>
+					</span>
         </li>
       {:else}
 				<li class="service-item empty">Услуги не найдены...</li>
