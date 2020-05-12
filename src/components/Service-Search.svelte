@@ -304,12 +304,17 @@
 	.favorite-list {
 		display: flex;
 		flex-flow: row wrap;
-    list-style: none;
-    padding: var(--es-05gap) var(--es-2gap);
-    margin: 0;
+		list-style: none;
+		padding: var(--es-05gap) var(--es-2gap);
+		margin: 0;
 	}
-	.favorite-item:not(:last-child) {
-		margin-right: var(--es-gap);
+	.favorite {
+		color: rgb(22, 21, 21);
+		border-radius: 10px;
+		padding: 2px 8px;
+	}
+	.favorite:hover {
+		background-color: rgba(0,0,0,.1);
 	}
 </style>
 
