@@ -162,19 +162,23 @@
 		});
 		appeals.content.forEach(appeal => {
 			appeal.objects.forEach(object => {
-				if (
-					object.data &&
-					object.data.person &&
-					object.data.person.reestrId &&
-					!recentClients.some(
-						client => client.reestrId === object.data.person.reestrId
-					)
-				) {
-					// TODO: подгружать данные отдельно, даже если нет reestrId
-					recentClients.push(object.data.person);
+				if (object.data && object.data.person) {
+					if (object.data.person.reestrId) {
+						if (!recentClients.some(
+							client => client.reestrId === object.data.person.reestrId
+						)) {
+							recentClients.push(object.data.person);
+						}
+					}
+					else {
+						let client = object.data.person;
+						client.reestrId = '';
+						recentClients.push(client);
+					}
 				}
 			});
 		});
+		recentClients = recentClients;
 	}
 	function applyPrompt(e) {
 		switch (state) {
