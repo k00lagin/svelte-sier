@@ -2,6 +2,7 @@
 	import { fetchData, alias, favoriteServices } from "../sier.js";
 	import Alias from "./Alias.svelte"
 	import FavoriteButton from "./Favorite-Button.svelte"
+	import FavoriteService from "./Favorite-Service.svelte"
   let serviceSearchInput, serviceSearchDialog;
   let query = "";
   let aliases = alias.get();
@@ -342,15 +343,7 @@
 			<ul class="favorite-list">
 				{#each faves as fave}
 					<li class="favorite-item">
-						<a class="favorite" href={(() => {
-							let service = services.find(service => service.sid == fave);
-							if (service) {
-								return `http://172.153.153.48/ais/appeals/create/${service.id}`;
-							}
-							else {
-								return false;
-							}
-						})()}>{aliases[fave] || fave}</a>
+						<FavoriteService sid={fave} services={services}></FavoriteService>
 					</li>
 				{/each}
 			</ul>
