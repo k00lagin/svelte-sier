@@ -59,7 +59,8 @@ export let alias = {
 		GM_setValue('enhanced-sier_aliases', JSON.stringify(obj));
 	},
 	get: function () {
-		return JSON.parse(GM_getValue('enhanced-sier_aliases',`{"719747": "прописка","723392": "права","727489": "снилс"}`));
+		// TODO: предлагать создать алиасы/избранное при первом запуске скрипта (по названию услуг)
+		return JSON.parse(GM_getValue('enhanced-sier_aliases',`{}`));//"719747": "прописка","723392": "права","727489": "снилс"
 	}
 }
 export let favoriteServices = {
@@ -67,7 +68,7 @@ export let favoriteServices = {
 		GM_setValue('enhanced-sier_favorite-services', JSON.stringify(arr));
 	},
 	get: function () {
-		return JSON.parse(GM_getValue('enhanced-sier_favorite-services',`["719747","723392","727489"]`));
+		return JSON.parse(GM_getValue('enhanced-sier_favorite-services',`[]`));//"719747","723392","727489"
 	}
 }
 export function getPopularSurnames(substring) {
