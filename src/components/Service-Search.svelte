@@ -348,7 +348,7 @@
 								return `http://172.153.153.48/ais/appeals/create/${service.id}`;
 							}
 							else {
-								return '#';
+								return false;
 							}
 						})()}>{aliases[fave] || fave}</a>
 					</li>
