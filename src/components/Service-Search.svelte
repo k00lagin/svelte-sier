@@ -179,11 +179,18 @@
 			faves = faves;
 		}
 		else {
-			let index = faves.indexOf(e.currentTarget.value);
-			if (index >= 0) {
-				faves.splice(index, 1);
-				faves = faves;
-			}
+			removeFave(e.currentTarget.value)
+		}
+	}
+	function handleFaveRemove(e) {
+		// console.log(e.detail.sid);
+		removeFave(e.detail.sid);
+	}
+	function removeFave(sid) {
+		let index = faves.indexOf(sid);
+		if (index >= 0) {
+			faves.splice(index, 1);
+			faves = faves;
 		}
 	}
 </script>
@@ -343,7 +350,7 @@
 			<ul class="favorite-list">
 				{#each faves as fave}
 					<li class="favorite-item">
-						<FavoriteService sid={fave} services={services}></FavoriteService>
+						<FavoriteService sid={fave} services={services} on:remove={handleFaveRemove}></FavoriteService>
 					</li>
 				{/each}
 			</ul>
