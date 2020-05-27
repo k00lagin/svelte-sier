@@ -77,7 +77,7 @@
 <ul class="context-menu" bind:this={menu}>
 	<li><a href={url} class="menu-button">Начать</a></li>
 	<li><a href={url} target="_blank" class="menu-button">Начать на новой вкладке</a></li>
-	<li><button type="button" class="menu-button">Переименовать</button></li>
+	<!-- <li><button type="button" class="menu-button">Переименовать</button></li> -->
 	<li><button type="button" class="menu-button" value={sid} on:click={handleServiceRemove}>Удалить</button></li>
 </ul>
 
