@@ -24,14 +24,9 @@
 		})
 	}, false);
 	function handleServiceRemove(e) {
-		// let index = faves.indexOf(e.currentTarget.value);
 		dispatch('remove', {
 			sid: e.currentTarget.value
 		});
-		// if (index >= 0) {
-		// 	faves.splice(index, 1);
-		// 	faves = faves;
-		// }
 	}
 </script>
 
@@ -55,24 +50,34 @@
 		z-index: 1;
 		list-style: none;
 		padding: 0;
+		background-color: white;
 		box-shadow: 5px 0 5px -1px rgba(0, 0, 0, 0.2),
 			0 5px 5px -1px rgba(0, 0, 0, 0.2);
 	}
-	.context-menu button {
+	.menu-button {
 		width: 100%;
 		background-color: white;
 		border: 0;
 		text-align: start;
+		display: block;
+		padding: 4px 8px;
+		color: black;
 	}
-	.context-menu button:hover {
-		background-color: rgb(179, 179, 179);
+	button.menu-button:hover,
+	a.menu-button[href]:hover {
+		background-color: rgba(179, 179, 179, 0.2);
+	}
+	a.menu-button:not([href]) {
+		color: rgb(145, 145, 145);
+		cursor: default;
 	}
 </style>
 
 <a class="favorite" href={url} title={!url?`${sid}: Услуга из другого МФЦ`:service.name} class:external={!url} on:contextmenu={handleContextMenu}>{aliases[sid] || sid}</a>
 <ul class="context-menu" bind:this={menu}>
-	<li><button type="button">Начать</button></li>
-	<li><button type="button">Переименовать</button></li>
-	<li><button type="button" value={sid} on:click={handleServiceRemove}>Удалить</button></li>
+	<li><a href={url} class="menu-button">Начать</a></li>
+	<li><a href={url} target="_blank" class="menu-button">Начать на новой вкладке</a></li>
+	<li><button type="button" class="menu-button">Переименовать</button></li>
+	<li><button type="button" class="menu-button" value={sid} on:click={handleServiceRemove}>Удалить</button></li>
 </ul>
 

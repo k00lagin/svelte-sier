@@ -309,11 +309,12 @@
 	.service-item:hover :global(.fave-label) {
 		visibility: visible;
 	}
+
 	.favorite-list {
 		display: flex;
 		flex-flow: row wrap;
 		list-style: none;
-		padding: var(--es-05gap) var(--es-2gap);
+		padding: var(--es-05gap) var(--es-gap);
 		margin: 0;
 	}
 	.favorite {
