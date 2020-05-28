@@ -43,7 +43,7 @@
 					}
 				}
 				if (obj.sid) {
-					service.sid = service.sid.split(obj.sid).join(`<b>${obj.sid}</b>`);
+					service.sidRich = service.sid.split(obj.sid).join(`<b>${obj.sid}</b>`);
 				}
 				if (obj.name) {
 					service.name = service.name.split(obj.name).join(`<b>${obj.name}</b>`)
@@ -317,14 +317,6 @@
 		padding: var(--es-05gap) var(--es-gap);
 		margin: 0;
 	}
-	.favorite {
-		color: rgb(22, 21, 21);
-		border-radius: 10px;
-		padding: 2px 8px;
-	}
-	.favorite:hover {
-		background-color: rgba(0,0,0,.1);
-	}
 </style>
 
 <button
@@ -366,7 +358,7 @@
           {#if isCtrlPressed && index < 10}
             <span class="control-flyout">{(index + 1) % 10}</span>
           {/if}
-          <span class="service-code">{@html service.sid}</span>
+          <span class="service-code">{@html service.sidRich || service.sid}</span>
           <a
             tabindex="0"
             class="service-link"
