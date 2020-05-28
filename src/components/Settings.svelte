@@ -1,8 +1,20 @@
 <script>
+	import { alias, favoriteServices } from "../sier.js";
+  let aliases = alias.get();
+	$: alias.save(aliases);
+  let faves = favoriteServices.get();
+	$: favoriteServices.save(faves);
   let hidden = true;
   function toggleDialog() {
     hidden = !hidden;
-  }
+	}
+	let aliasesInput, favesInput;
+	function handleAliasesSave() {
+		aliases = JSON.parse(aliasesInput.value);
+	}
+	function handleFavesSave() {
+		faves = JSON.parse(favesInput.value);
+	}
 </script>
 
 <style>
@@ -71,5 +83,10 @@
 		<span class="dialog-title">Настройки дополнений</span>
 		<button class="dialog__close-trigger icon-cross" on:click={toggleDialog}></button>
 	</header>
-	<input type="text">
+	<h3>Псевдонимы услуг</h3>
+	<textarea name="aliases" id="" cols="30" rows="10" value={JSON.stringify(aliases)} bind:this={aliasesInput}></textarea>
+	<button type="button" on:click={handleAliasesSave}>Сохранить</button>
+	<h3>Избранные услуги</h3>
+	<textarea name="faves" id="" cols="30" rows="10" value={JSON.stringify(faves)} bind:this={favesInput}></textarea>
+	<button type="button" on:click={handleFavesSave}>Сохранить</button>
 </dialog>
