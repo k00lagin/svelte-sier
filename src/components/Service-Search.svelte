@@ -341,7 +341,7 @@
 	{:then services}
 		{#if faves.length > 0}
 			<ul class="favorite-list">
-				{#each faves as fave}
+				{#each faves as fave (fave)}
 					<li class="favorite-item">
 						<FavoriteService sid={fave} services={services} on:remove={handleFaveRemove}></FavoriteService>
 					</li>
