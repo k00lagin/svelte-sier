@@ -56,7 +56,7 @@
 		margin: 0;
 		position: fixed;
     width: 600px;
-    height: 800px;
+    max-height: 800px;
 		right: 0;
 		bottom: 32px;
 		left: unset;
@@ -71,7 +71,6 @@
 	}
 	.dialog-header {
 		display: flex;
-		margin-bottom: var(--es-gap);
 		font-family:Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 		font-size:19px;
 		font-weight:500;
@@ -79,7 +78,7 @@
 
 	.dialog-title {
 		flex-grow: 1;
-		margin-left: var(--es-2gap);
+		margin: 0 0 0 var(--es-2gap);
 	}
 
 	.dialog__close-trigger {
@@ -88,22 +87,39 @@
 		background-color: transparent;
 		border: 0;
 	}
+	.main {
+		padding: 0 var(--es-2gap) var(--es-gap);
+		display: flex;
+		flex-flow: column nowrap;
+	}
+	.main textarea {
+		resize: none;
+		height: 100px;
+		padding: var(--es-05gap) var(--es-gap);
+	}
+	.main button {
+		align-self: flex-end;
+	}
+	h3 {
+		margin: var(--es-gap) 0;
+	}
 </style>
 
 <button
-  type="button"
-  class="app-settings-trigger icon-cog"
-  on:click={toggleDialog} />
+	type="button"
+	class="app-settings-trigger icon-cog"
+	on:click={toggleDialog} />
 <dialog class="app-settings-dialog" open={!hidden}>
 	<header class="dialog-header">
-		<span class="dialog-title">Настройки дополнений</span>
+		<h2 class="dialog-title">Настройки дополнений</h2>
 		<button class="dialog__close-trigger icon-cross" on:click={toggleDialog}></button>
 	</header>
-	<h3>Псевдонимы услуг</h3>
-	<!-- value={JSON.stringify($aliases)} -->
-	<textarea name="aliases" id="" cols="30" rows="10" bind:value={aliasesString} bind:this={aliasesInput}></textarea>
-	<button type="button" on:click={handleAliasesSave}>Сохранить</button>
-	<h3>Избранные услуги</h3>
-	<textarea name="faves" id="" cols="30" rows="10" bind:value={favesString} bind:this={favesInput}></textarea>
-	<button type="button" on:click={handleFavesSave}>Сохранить</button>
+	<div class="main">
+		<h3>Псевдонимы услуг</h3>
+		<textarea name="aliases" id="" bind:value={aliasesString} bind:this={aliasesInput}></textarea>
+		<button type="button" on:click={handleAliasesSave}>Сохранить</button>
+		<h3>Избранные услуги</h3>
+		<textarea name="faves" id="" bind:value={favesString} bind:this={favesInput}></textarea>
+		<button type="button" on:click={handleFavesSave}>Сохранить</button>
+	</div>
 </dialog>
