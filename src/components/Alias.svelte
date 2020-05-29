@@ -1,6 +1,6 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
-	export let value = '', view = '';
+	export let value = undefined, view = '';
 	let previousValue, tempValue;
 	const dispatch = createEventDispatcher();
 	let isEditing = false;
@@ -20,7 +20,7 @@
 		tempValue = value;
 	}
 	function applyChanges() {
-		value = tempValue;
+		value = tempValue === '' ? undefined : tempValue;
 		isEditing = false;
 		dispatch('change', {});
 	}
