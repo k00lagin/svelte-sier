@@ -1,19 +1,35 @@
 <script>
-	import { alias, favoriteServices } from "../sier.js";
-  let aliases = alias.get();
-	$: alias.save(aliases);
-  let faves = favoriteServices.get();
-	$: favoriteServices.save(faves);
-  let hidden = true;
+	import { aliases, faves } from '../stores.js';
+	let hidden = true;
   function toggleDialog() {
-    hidden = !hidden;
+		hidden = !hidden;
 	}
-	let aliasesInput, favesInput;
+	$: aliasesString = (() => {
+		if (!prevAliases || prevAliases === aliasesString) {
+			prevAliases = JSON.stringify($aliases);
+			return JSON.stringify($aliases);
+		}
+		else {
+			return aliasesString;
+		}
+	})();
+	$: favesString = (() => {
+		if (!prevFaves || prevFaves === favesString) {
+			prevFaves = JSON.stringify($faves);
+			return JSON.stringify($faves);
+		}
+		else {
+			return favesString;
+		}
+	})();
+	let aliasesInput, favesInput, aliasesString, prevAliases, favesString, prevFaves;
 	function handleAliasesSave() {
-		aliases = JSON.parse(aliasesInput.value);
+		$aliases = JSON.parse(aliasesString);
+		prevAliases = JSON.stringify($aliases);
 	}
 	function handleFavesSave() {
-		faves = JSON.parse(favesInput.value);
+		$faves = JSON.parse(favesInput.value);
+		prevFaves = JSON.stringify($faves);
 	}
 </script>
 
@@ -84,9 +100,10 @@
 		<button class="dialog__close-trigger icon-cross" on:click={toggleDialog}></button>
 	</header>
 	<h3>Псевдонимы услуг</h3>
-	<textarea name="aliases" id="" cols="30" rows="10" value={JSON.stringify(aliases)} bind:this={aliasesInput}></textarea>
+	<!-- value={JSON.stringify($aliases)} -->
+	<textarea name="aliases" id="" cols="30" rows="10" bind:value={aliasesString} bind:this={aliasesInput}></textarea>
 	<button type="button" on:click={handleAliasesSave}>Сохранить</button>
 	<h3>Избранные услуги</h3>
-	<textarea name="faves" id="" cols="30" rows="10" value={JSON.stringify(faves)} bind:this={favesInput}></textarea>
+	<textarea name="faves" id="" cols="30" rows="10" bind:value={favesString} bind:this={favesInput}></textarea>
 	<button type="button" on:click={handleFavesSave}>Сохранить</button>
 </dialog>

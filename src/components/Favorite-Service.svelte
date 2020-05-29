@@ -1,12 +1,8 @@
 <script>
-	import { alias, favoriteServices } from "../sier.js";
 	import { createEventDispatcher } from 'svelte';
+	import { aliases, faves } from '../stores.js';
 	export let sid, services;
 	const dispatch = createEventDispatcher();
-	let aliases = alias.get();
-	$: alias.save(aliases);
-  let faves = favoriteServices.get();
-	$: favoriteServices.save(faves);
 	let service = services.find(service => service.sid == sid);
 	let url = service ? `http://172.153.153.48/ais/appeals/create/${service.id}` : undefined;
 	let menu;
@@ -73,7 +69,7 @@
 	}
 </style>
 
-<a class="favorite" href={url} title={!url?`${sid}: Услуга из другого МФЦ`:service.name} class:external={!url} on:contextmenu={handleContextMenu}>{aliases[sid] || sid}</a>
+<a class="favorite" href={url} title={!url?`${sid}: Услуга из другого МФЦ`:service.name} class:external={!url} on:contextmenu={handleContextMenu}>{$aliases[sid] || sid}</a>
 <ul class="context-menu" bind:this={menu}>
 	<li><a href={url} class="menu-button">Начать</a></li>
 	<li><a href={url} target="_blank" class="menu-button">Начать на новой вкладке</a></li>

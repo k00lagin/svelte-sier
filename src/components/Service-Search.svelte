@@ -1,14 +1,11 @@
 <script>
-	import { fetchData, alias, favoriteServices } from "../sier.js";
+	import { fetchData } from "../sier.js";
+	import { aliases, faves } from '../stores.js';
 	import Alias from "./Alias.svelte"
 	import FavoriteButton from "./Favorite-Button.svelte"
 	import FavoriteService from "./Favorite-Service.svelte"
   let serviceSearchInput, serviceSearchDialog;
   let query = "";
-  let aliases = alias.get();
-	$: alias.save(aliases);
-  let faves = favoriteServices.get();
-	$: favoriteServices.save(faves);
   function toggleDialog() {
     if (serviceSearchDialog.hasAttribute('open')) {
 			serviceSearchDialog.removeAttribute('open');
@@ -49,12 +46,12 @@
 					service.name = service.name.split(obj.name).join(`<b>${obj.name}</b>`)
 				}
 				if (obj.alias) {
-					service.alias = aliases[service.sid].split(obj.alias).join(`<b>${obj.alias}</b>`);
+					service.alias = $aliases[service.sid].split(obj.alias).join(`<b>${obj.alias}</b>`);
 				}
 				service.matchPriority = Math.max(priority, service.matchPriority || 0);
 			}
       let isEvery = words.every(word => {
-        if (aliases[source.sid] && aliases[source.sid].indexOf(word) !== -1) {
+        if ($aliases[source.sid] && $aliases[source.sid].indexOf(word) !== -1) {
 					match(4, {alias:word});
           return true;
         }
@@ -175,8 +172,8 @@
 	}
 	function handleFaveChange(e) {
 		if (e.currentTarget.checked) {
-			faves.push(e.currentTarget.value);
-			faves = faves;
+			$faves.push(e.currentTarget.value);
+			$faves = $faves;
 		}
 		else {
 			removeFave(e.currentTarget.value)
@@ -187,10 +184,10 @@
 		removeFave(e.detail.sid);
 	}
 	function removeFave(sid) {
-		let index = faves.indexOf(sid);
+		let index = $faves.indexOf(sid);
 		if (index >= 0) {
-			faves.splice(index, 1);
-			faves = faves;
+			$faves.splice(index, 1);
+			$faves = $faves;
 		}
 	}
 </script>
@@ -339,9 +336,9 @@
 	{#await services}
 		Загрузка...
 	{:then services}
-		{#if faves.length > 0}
+		{#if $faves.length > 0}
 			<ul class="favorite-list">
-				{#each faves as fave (fave)}
+				{#each $faves as fave (fave)}
 					<li class="favorite-item">
 						<FavoriteService sid={fave} services={services} on:remove={handleFaveRemove}></FavoriteService>
 					</li>
@@ -353,7 +350,7 @@
     {#await services}
       <li class="service-item empty">Загрузка...</li>
     {:then services}
-      {#each services as service, index}
+      {#each services as service, index (service.sid)}
         <li class="service-item">
           {#if isCtrlPressed && index < 10}
             <span class="control-flyout">{(index + 1) % 10}</span>
@@ -368,8 +365,8 @@
             {@html service.name}
           </a>
 					<span style="min-width: 52px;display: inline-block;">
-						<Alias bind:value={aliases[service.sid]}  view={service.alias || aliases[service.sid]} on:change={filterServices}/>
-						<FavoriteButton on:change={handleFaveChange} value={service.sid} checked={faves.indexOf(service.sid) !== -1}></FavoriteButton>
+						<Alias bind:value={$aliases[service.sid]}  view={service.alias || $aliases[service.sid]} on:change={filterServices}/>
+						<FavoriteButton on:change={handleFaveChange} value={service.sid} checked={$faves.indexOf(service.sid) !== -1}></FavoriteButton>
 					</span>
         </li>
       {:else}
