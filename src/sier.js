@@ -85,3 +85,17 @@ export function getPopularSurnames(substring) {
 		}
 	}, []);
 }
+
+export async function getPopularFirstNames(substring, gender = '') {
+	return new Promise((resolve, reject) => {
+		if (substring.length > 4) {
+			substring = substring.substr(0, 4);
+		}
+		if (gender) {
+			gender = `.${gender}`;
+		}
+		fetch(`https://k00lagin.github.io/static-api/name/${substring}${gender}.json`).then(response => response.json()).then(result => {
+			resolve(result.names)
+		});
+	});
+}
