@@ -1,5 +1,5 @@
 <script>
-	import { fetchData, getPopularSurnames } from '../sier.js';
+	import { fetchData, getPopularSurnames, getPopularFirstnames } from '../sier.js';
 	import { toCyrillic, toTitleCase } from '../helpers.js';
 	let query = '';
 	let searchComponents = [];
@@ -39,15 +39,18 @@
 					]
 					break;
 				case 'FIRST_NAME':
-					namePrompts = [...recentClients, ...clients]
-						.filter(
-							client =>
-								client.firstName.toLowerCase().indexOf(searchComponents[1].toLowerCase()) === 0
-						)
-						.map(client => {
-								return {value: client.firstName}
-							})
-						.filter((name, index, names) => names.findIndex(el => el.value === name.value) === index)
+					if (searchComponents[1].length > 0) {
+						namePrompts = [...recentClients, ...clients]
+							.filter(
+								client =>
+									client.firstName.toLowerCase().indexOf(searchComponents[1].toLowerCase()) === 0
+							)
+							.map(client => {
+									return {value: client.firstName}
+								})
+						namePrompts = [...namePrompts, ...getPopularFirstnames(searchComponents[1])]
+							.filter((name, index, names) => names.findIndex(el => el.value === name.value) === index);
+					}
 					break;
 				case 'MIDDLE_NAME':
 					namePrompts = [];
