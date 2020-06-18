@@ -43,7 +43,7 @@
 					service.sidRich = service.sid.split(obj.sid).join(`<b>${obj.sid}</b>`);
 				}
 				if (obj.name) {
-					service.name = service.name.split(obj.name).join(`<b>${obj.name}</b>`)
+					service.nameRich = service.name.split(obj.name).join(`<b>${obj.name}</b>`)
 				}
 				if (obj.alias) {
 					service.alias = $aliases[service.sid].split(obj.alias).join(`<b>${obj.alias}</b>`);
@@ -362,7 +362,7 @@
 						on:focus={(e) => e.currentTarget.parentElement.classList.add('active')}
 						on:blur={(e) => e.currentTarget.parentElement.classList.remove('active')}
             href={`http://172.153.153.48/ais/appeals/create/${service.id}`}>
-            {@html service.name}
+						{@html service.nameRich || service.name}
           </a>
 					<span style="min-width: 52px;display: inline-block;">
 						<Alias bind:value={$aliases[service.sid]}  view={service.alias || $aliases[service.sid]} on:change={filterServices}/>
