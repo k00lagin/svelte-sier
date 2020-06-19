@@ -3,6 +3,7 @@
 	import { toCyrillic, toTitleCase } from '../helpers.js';
 	let query = '';
 	let searchComponents = [];
+	let searchGender = '';
 	let namePrompts = [];
 	let state = 'INITIAL';
 	let recentClients = [],
@@ -48,7 +49,7 @@
 							.map(client => {
 									return {value: client.firstName}
 								})
-						namePrompts = [...namePrompts, ...getPopularFirstnames(searchComponents[1])]
+						namePrompts = [...namePrompts, ...getPopularFirstnames(searchComponents[1], searchGender)]
 							.filter((name, index, names) => names.findIndex(el => el.value === name.value) === index);
 					}
 					break;
@@ -184,6 +185,13 @@
 		recentClients = recentClients;
 	}
 	function applyPrompt(e) {
+		let gender = e.currentTarget.getAttribute('data-gender');
+		if (gender) {
+			searchGender = gender;
+		}
+		else {
+			searchGender = '';
+		}
 		switch (state) {
 			case 'LAST_NAME':
 				searchComponents[0] = e.currentTarget.textContent;
