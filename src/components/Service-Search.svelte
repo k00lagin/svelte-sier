@@ -214,6 +214,7 @@
     margin: 0;
     width: 600px;
     height: 800px;
+		max-height: calc(100vh - 64px);
     position: absolute;
     left: 100px;
     top: 32px;
