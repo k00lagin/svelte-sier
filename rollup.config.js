@@ -44,9 +44,9 @@ export default {
 
 		production && terser({
 			output: {
-        beautify: false,
-        preamble: preamble
-    	}
+				beautify: false,
+				preamble: preamble
+			}
 		})
 	],
 	watch: {

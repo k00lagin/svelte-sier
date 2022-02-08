@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 
 export function persistent(key, initialValue) {
 	const store = writable(initialValue)
-	const {subscribe, set} = store
+	const { subscribe, set } = store
 	const json = GM_getValue(key)
 
 	if (json) {

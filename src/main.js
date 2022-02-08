@@ -5,7 +5,7 @@ import ClientSearch from './components/Client-Search.svelte';
 
 function checkLoadState() {
 	if (!document.querySelector('.navigation.navigation-main')) {
-		if (document.querySelector('.service-search-trigger')){
+		if (document.querySelector('.service-search-trigger')) {
 			document.querySelector('.service-search-trigger').remove();
 			document.querySelector('.service-search-dialog').remove();
 		}

@@ -83,7 +83,7 @@ export function toCyrillic(str) {
 
 export function toTitleCase(str) {
 	if (str) {
-		return str.substr(0,1).toUpperCase() + str.substr(1).toLowerCase();
+		return str.substr(0, 1).toUpperCase() + str.substr(1).toLowerCase();
 	}
 	return '';
 }

@@ -1,30 +1,68 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
-	import { aliases, faves } from '../stores.js';
+	import { createEventDispatcher } from "svelte";
+	import { aliases, faves } from "../stores.js";
 	export let sid, services;
 	const dispatch = createEventDispatcher();
-	let service = services.find(service => service.sid == sid);
-	let url = service ? `http://172.153.153.48/ais/appeals/create/${service.id}` : undefined;
+	let service = services.find((service) => service.sid == sid);
+	let url = service
+		? `http://172.153.153.48/ais/appeals/create/${service.id}`
+		: undefined;
 	let menu;
 	function handleContextMenu(e) {
 		e.preventDefault();
-		menu.classList.add('active');
+		menu.classList.add("active");
 	}
-	document.addEventListener("mousedown", e => {
-		Array.from(document.querySelectorAll('.context-menu.active')).forEach(menu => {
-			let menuGeometry = menu.getClientRects()[0];
-			if (e.pageX < menuGeometry.left || e.pageX > menuGeometry.left + menuGeometry.width ||
-				e.pageY < menuGeometry.top || e.pageY > menuGeometry.top + menuGeometry.height) {
-				menu.classList.remove('active');
-			}
-		})
-	}, false);
+	document.addEventListener(
+		"mousedown",
+		(e) => {
+			Array.from(document.querySelectorAll(".context-menu.active")).forEach(
+				(menu) => {
+					let menuGeometry = menu.getClientRects()[0];
+					if (
+						e.pageX < menuGeometry.left ||
+						e.pageX > menuGeometry.left + menuGeometry.width ||
+						e.pageY < menuGeometry.top ||
+						e.pageY > menuGeometry.top + menuGeometry.height
+					) {
+						menu.classList.remove("active");
+					}
+				}
+			);
+		},
+		false
+	);
 	function handleServiceRemove(e) {
-		dispatch('remove', {
-			sid: e.currentTarget.value
+		dispatch("remove", {
+			sid: e.currentTarget.value,
 		});
 	}
 </script>
+
+<a
+	class="favorite"
+	href={url}
+	title={!url
+		? `${sid}: Удалённая услуга, либо услуга из другого МФЦ`
+		: service.name}
+	class:external={!url}
+	on:contextmenu={handleContextMenu}>{$aliases[sid] || sid}</a
+>
+<ul class="context-menu" bind:this={menu}>
+	<li><a href={url} class="menu-button">Начать</a></li>
+	<li>
+		<a href={url} target="_blank" class="menu-button">Начать на новой вкладке</a
+		>
+	</li>
+	<!-- <li><button type="button" class="menu-button">Переименовать</button></li> -->
+	<li>
+		<button
+			type="button"
+			class="menu-button"
+			value={sid}
+			on:click={handleServiceRemove}>Удалить</button
+		>
+	</li>
+</ul>
 
 <style>
 	.favorite {
@@ -36,7 +74,7 @@
 		color: rgb(126, 126, 126);
 	}
 	.favorite:not(.external):hover {
-		background-color: rgba(0,0,0,.1);
+		background-color: rgba(0, 0, 0, 0.1);
 	}
 	.context-menu:not(.active) {
 		display: none;
@@ -68,12 +106,3 @@
 		cursor: default;
 	}
 </style>
-
-<a class="favorite" href={url} title={!url?`${sid}: Услуга из другого МФЦ`:service.name} class:external={!url} on:contextmenu={handleContextMenu}>{$aliases[sid] || sid}</a>
-<ul class="context-menu" bind:this={menu}>
-	<li><a href={url} class="menu-button">Начать</a></li>
-	<li><a href={url} target="_blank" class="menu-button">Начать на новой вкладке</a></li>
-	<!-- <li><button type="button" class="menu-button">Переименовать</button></li> -->
-	<li><button type="button" class="menu-button" value={sid} on:click={handleServiceRemove}>Удалить</button></li>
-</ul>
-
