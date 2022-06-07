@@ -8,7 +8,7 @@ const production = !process.env.ROLLUP_WATCH;
 let preamble = '// ==UserScript==\n' +
 	'// @name        Svelte SIER\n' +
 	'// @namespace   k00lagin.svelte-sier\n' +
-	'// @version     0.0.4\n' +
+	'// @version     0.1.1\n' +
 	'// @description Make SIER great again!\n' +
 	'// @author      k00lagin\n' +
 	'// @match       http://172.153.153.48/*\n' +
@@ -16,6 +16,8 @@ let preamble = '// ==UserScript==\n' +
 	'// @grant       GM_getValue\n' +
 	'// @grant       GM_setClipboard\n' +
 	'// @grant       GM_notification\n' +
+	'// @updateURL	 https://github.com/k00lagin/svelte-sier/releases/latest/download/svelte-sier.js\n' +
+	'// @downloadURL https://github.com/k00lagin/svelte-sier/releases/latest/download/svelte-sier.js\n' +
 	'// ==/UserScript==\n';
 
 export default {
