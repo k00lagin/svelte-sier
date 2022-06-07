@@ -35,6 +35,7 @@
 					...recentClients
 						.filter(
 							(client) =>
+								client.lastName &&
 								client.lastName
 									.toLowerCase()
 									.indexOf(searchComponents[0].toLowerCase()) === 0
@@ -50,6 +51,7 @@
 					namePrompts = [...recentClients, ...clients]
 						.filter(
 							(client) =>
+								client.firstName &&
 								client.firstName
 									.toLowerCase()
 									.indexOf(searchComponents[1].toLowerCase()) === 0
@@ -74,9 +76,9 @@
 	}
 	$: filteredClients = [...recentClients, ...clients].filter((client) => {
 		return (
-			client.lastName.indexOf(searchComponents[0]) === 0 &&
-			client.firstName.indexOf(searchComponents[1] || "") === 0 &&
-			client.middleName.indexOf(searchComponents[2] || "") === 0
+			client.lastName && client.lastName.indexOf(searchComponents[0]) === 0 &&
+			client.firstName && client.firstName.indexOf(searchComponents[1] || "") === 0 &&
+			client.middleName && client.middleName.indexOf(searchComponents[2] || "") === 0
 		);
 	});
 	async function handleQueryChange() {
