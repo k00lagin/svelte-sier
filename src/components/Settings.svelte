@@ -63,14 +63,6 @@
 			bind:this={favesInput}
 		/>
 		<button type="button" on:click={handleFavesSave}>Сохранить</button>
-		<label
-			><input
-				type="checkbox"
-				name="settingForceDocsPriority"
-				bind:value={$settingForceDocsPriority}
-			/>Принудительно поднимать паспорт и свидетельство о рождении в списке
-			документов</label
-		>
 	</div>
 </dialog>
 

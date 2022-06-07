@@ -28,21 +28,11 @@ function init() {
 		var appSettings = new AppSettings({
 			target: document.body
 		});
-		let docs = JSON.parse(localStorage.getItem('catalogueDocuments'));
-		let changed = false;
-		docs.map(doc => {
-			if (doc.name === "Паспорт гражданина РФ" || doc.name === "Свидетельство о рождении") {
-				doc.name = `·${doc.name}`;
-				changed = true;
-			}
-		})
-		if (changed) {
-			localStorage.setItem('catalogueDocuments', JSON.stringify(docs));
-		}
 	}
-	if (document.querySelector('input[placeholder="Поиск по ФИО, СНИЛС или номеру мобильного телефона в реестре клиентов..."]:not(.enhanced-client-search)')) {
+	let clientSearchInput = document.querySelector('input[placeholder="Поиск по ФИО, СНИЛС или номеру мобильного телефона в реестре клиентов..."]:not(.enhanced-client-search)');
+	if (clientSearchInput) {
 		var clientSearch = new ClientSearch({
-			target: document.querySelector('input[placeholder="Поиск по ФИО, СНИЛС или номеру мобильного телефона в реестре клиентов..."]').parentElement
+			target: clientSearchInput.parentElement
 		});
 	}
 }
