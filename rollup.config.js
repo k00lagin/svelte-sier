@@ -8,7 +8,7 @@ const production = !process.env.ROLLUP_WATCH;
 let preamble = '// ==UserScript==\n' +
 	'// @name        Svelte SIER\n' +
 	'// @namespace   k00lagin.svelte-sier\n' +
-	'// @version     0.0.3\n' +
+	'// @version     0.0.4\n' +
 	'// @description Make SIER great again!\n' +
 	'// @author      k00lagin\n' +
 	'// @match       http://172.153.153.48/*\n' +
