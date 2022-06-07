@@ -191,7 +191,6 @@
 							)
 						) {
 							recentClients.push(object.data.person);
-							console.log(object.data.person); // TODO remove this
 						}
 					} else {
 						let client = object.data.person;

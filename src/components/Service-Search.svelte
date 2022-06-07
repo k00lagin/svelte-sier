@@ -193,7 +193,6 @@
 		}
 	}
 	function handleFaveRemove(e) {
-		// console.log(e.detail.sid);
 		removeFave(e.detail.sid);
 	}
 	function removeFave(sid) {

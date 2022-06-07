@@ -116,6 +116,5 @@ export function getPopularFirstnames(substring, gender = '') {
 			}
 		}
 	}
-	console.table(prompts);
 	return prompts;
 }
