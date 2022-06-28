@@ -87,8 +87,10 @@
 	}
 
 	async function getServices() {
-		let services = [];
-		let rawServices = await fetchData({
+		let services = [], rawServices;
+		let page = 0, totalPages;
+		while (totalPages === undefined || page < totalPages) {
+			rawServices = await fetchData({
 			url: "api/v1/search/subservices",
 			body: JSON.stringify({
 				search: {
@@ -100,20 +102,24 @@
 						},
 					],
 				},
-				size: 200,
-				sort: "serviceCode,DESC",
-				prj: "servicesList",
-			}),
-		});
-		rawServices = rawServices.content;
-		rawServices.forEach((rawService) => {
-			let service = {
-				id: rawService._id,
-				sid: rawService.serviceId.split("_")[3],
-				name: rawService.serviceName,
-			};
-			services.push(service);
-		});
+					page: page,
+					size: 200,
+					sort: "serviceCode,DESC",
+					prj: "servicesList",
+				}),
+			});
+			totalPages = rawServices.totalPages;
+			rawServices = rawServices.content;
+			rawServices.forEach((rawService) => {
+				let service = {
+					id: rawService._id,
+					sid: rawService.serviceId.split("_")[3],
+					name: rawService.serviceName,
+				};
+				services.push(service);
+			});
+			page++;
+		}
 		return services;
 	}
 	function handleKeyDown(e) {
