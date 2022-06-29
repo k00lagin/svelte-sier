@@ -26,5 +26,5 @@
 * Установить в браузер дополнение Tampermonkey ([Chrome](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/), [Edge](https://microsoftedge.microsoft.com/addons/detail/iikmkjmpaadaobahmlepeloendndfphd))
 * Открыть «Панель управления» (Dashboard) Tampermonkey
 * Открыть вкладку Утилиты (Utilities)
-* Вставить ссылку на последнюю сборку со [страницы релизов](https://github.com/k00lagin/svelte-sier/releases)  в поле «Установка через URL» (Install from URL)
+* Вставить ссылку https://github.com/k00lagin/svelte-sier/releases/latest/download/svelte-sier.js в поле «Установка через URL» (Install from URL)
 * Нажать «Установить» (Install)
