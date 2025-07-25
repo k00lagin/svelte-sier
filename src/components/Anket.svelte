@@ -13,7 +13,7 @@
 	}
 
 	let form;
-	if (anket.questions) {
+	if (anket?.questions) {
 		for (let question of anket.questions) {
 			if ($anketAnswers[question.title] === undefined) {
 				$anketAnswers[question.title] = [];
@@ -38,22 +38,22 @@
 		return Object.keys(anket.services).filter((id) => {
 			let service = anket.services[id];
 			if (anket.title === "Семья с детьми" && (id === '727134' || id === '70115') &&
-				$anketAnswers['На какого по счёту ребёнка оказывается услуга'].some(answer => answer === 'Первый') &&	$anketAnswers['На какого по счёту ребёнка оказывается услуга'].length === 1 &&
-				$anketAnswers['Возраст ребенка'].some(answer => (answer === 'От 3 до 17 лет' || answer === 'От 17 до 18 лет' || answer === 'От 18 до 23 лет обучающийся по очной форме'))) {
+				$anketAnswers['На какого по счёту ребёнка оказывается услуга']?.some(answer => answer === 'Первый') &&	$anketAnswers['На какого по счёту ребёнка оказывается услуга'].length === 1 &&
+				$anketAnswers['Возраст ребенка']?.some(answer => (answer === 'От 3 до 17 лет' || answer === 'От 17 до 18 лет' || answer === 'От 18 до 23 лет обучающийся по очной форме'))) {
 				return false;
 			}
 			if (anket.title === "Инвалидность" && (id === '723672' || id === '65932' || id === '66013' || id === '723202') &&
-				$anketAnswers['Категория заявителя'].some(answer => answer === 'Член семьи погибшего (умершего) инвалида') &&
+				$anketAnswers['Категория заявителя']?.some(answer => answer === 'Член семьи погибшего (умершего) инвалида') &&
 				(
 					// $anketAnswers['Группа инвалидности'].some(answer => (answer === 'Ребенок-инвалид')) ||
-					$anketAnswers['Инвалидность связана с военной службой'].some(answer => (answer === 'нет'))
+					$anketAnswers['Инвалидность связана с военной службой']?.some(answer => (answer === 'нет'))
 					//  ||	$anketAnswers['Инвалидность связана с радиацией'].some(answer => (answer === 'нет' || answer === 'да'))
 				)) {
 				return false;
 			}
 			if (service.options === undefined) return true;
 			let activeOptions = Object.keys(service.options).filter((option) =>
-				$activeQuestions.some((q) => q === option)
+				$activeQuestions?.some((q) => q === option)
 			);
 			if (
 				activeOptions.every((option) => {
