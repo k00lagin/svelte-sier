@@ -17,7 +17,7 @@
 		})
 		lifeEventsAnkets = lifeEventsAnkets.content.filter(anket => {
 			if (anket.lifeEvent.title.startsWith("_")) return true;
-			let question = anket.anketaBlock.question[0] || anket.anketaBlock.question;
+			let question = anket.anketaBlock.questions[0] || anket.anketaBlock.question;
 			if (question.title.startsWith('_')) return true;
 			return false;
 		}).map(anket => {
