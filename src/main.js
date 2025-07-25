@@ -1,13 +1,10 @@
 import App from './components/App.svelte';
-import ServiceSearch from './components/Service-Search.svelte';
-import AppSettings from './components/Settings.svelte';
-import ClientSearch from './components/Client-Search.svelte';
+import Toolbar from './components/Toolbar.svelte'
 
 function checkLoadState() {
 	if (!document.querySelector('.navigation.navigation-main')) {
-		if (document.querySelector('.service-search-trigger')) {
-			document.querySelector('.service-search-trigger').remove();
-			document.querySelector('.service-search-dialog').remove();
+		if (document.querySelector('.enhanced-sier-toolbar')) {
+			document.querySelector('.enhanced-sier-toolbar').remove();
 		}
 		return;
 	}
@@ -18,21 +15,12 @@ function checkLoadState() {
 let initInterval = setInterval(checkLoadState, 100);
 
 function init() {
-	if (!document.querySelector('.service-search-trigger')) {
+	if (!document.querySelector('.enhanced-sier-toolbar')) {
 		var app = new App({
 			target: document.body
 		});
-		var serviceSearch = new ServiceSearch({
+		var toolbar = new Toolbar({
 			target: document.body
-		});
-		var appSettings = new AppSettings({
-			target: document.body
-		});
-	}
-	let clientSearchInput = document.querySelector('input[placeholder="Поиск по ФИО, СНИЛС или номеру мобильного телефона в реестре клиентов..."]:not(.enhanced-client-search)');
-	if (clientSearchInput) {
-		var clientSearch = new ClientSearch({
-			target: clientSearchInput.parentElement
 		});
 	}
 }

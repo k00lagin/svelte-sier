@@ -22,5 +22,9 @@ export function persistent(key, initialValue) {
 	}
 }
 
-export const aliases = persistent('enhanced-sier_aliases', {});
-export const faves = persistent('enhanced-sier_favorite-services', []);
+export const lifeEvents = persistent('enhanced-sier_life-events', []);
+export const standarts = persistent('enhanced-sier_standarts', {});
+
+export const currentAnket = persistent('enhanced-sier_current-anket', '');
+export const anketAnswers = persistent('enhanced-sier_anket-answers', {});
+export const activeQuestions = persistent('enhanced-sier_active-questions', []);

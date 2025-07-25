@@ -4,6 +4,14 @@
 			--es-05gap: calc(var(--es-gap) / 2);
 			--es-gap: 8px;
 			--es-2gap: calc(var(--es-gap) * 2);
+			--es-toolbar-width: 70px;
+			--es-toolbar-button-height: 76.4px;
+		}
+		@media (min-width: 1200px) {
+			body {
+				--es-toolbar-width: 100px;
+				--es-toolbar-button-height: 85.6px;
+			}
 		}
 		.visually-hidden {
 			position: absolute;

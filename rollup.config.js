@@ -1,60 +1,57 @@
 import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-// import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+import fs from 'fs';
 
+const preamble = fs.readFileSync('src/meta.js', 'utf-8');
 const production = !process.env.ROLLUP_WATCH;
-let preamble = '// ==UserScript==\n' +
-	'// @name        Svelte SIER\n' +
-	'// @namespace   k00lagin.svelte-sier\n' +
-	'// @version     0.1.2\n' +
-	'// @description Make SIER great again!\n' +
-	'// @author      k00lagin\n' +
-	'// @match       http://172.153.153.48/*\n' +
-	'// @grant       GM_setValue\n' +
-	'// @grant       GM_getValue\n' +
-	'// @grant       GM_setClipboard\n' +
-	'// @grant       GM_notification\n' +
-	'// @updateURL	 https://github.com/k00lagin/svelte-sier/releases/latest/download/svelte-sier.js\n' +
-	'// @downloadURL https://github.com/k00lagin/svelte-sier/releases/latest/download/svelte-sier.js\n' +
-	'// ==/UserScript==\n';
 
-export default {
-	input: 'src/main.js',
-	output: {
-		sourcemap: true,
-		format: 'iife',
-		name: 'app',
-		file: 'public/build/svelte-sier.js',
-		banner: preamble
+export default [
+	{
+		input: 'src/meta.js',
+		output: {
+			file: 'public/build/sier-anket.meta.js',
+			banner: preamble
+		}
 	},
-	plugins: [
-		svelte({
-			dev: !production
-		}),
+	{
+		input: 'src/main.js',
+		output: {
+			sourcemap: true,
+			format: 'iife',
+			name: 'app',
+			file: 'public/build/sier-anket.user.js',
+			banner: preamble
+		},
+		plugins: [
+			svelte({
+				dev: !production,
+				emitCss: false,
+			}),
 
-		resolve({
-			browser: true,
-			dedupe: ['svelte']
-		}),
-		commonjs(),
+			resolve({
+				browser: true,
+				dedupe: ['svelte']
+			}),
+			commonjs(),
 
-		!production && serve(),
+			!production && serve(),
 
-		// !production && livereload('public'),
+			// !production && livereload('public'),
 
-		production && terser({
-			output: {
-				beautify: false,
-				preamble: preamble
-			}
-		})
-	],
-	watch: {
-		clearScreen: false
+			production && terser({
+				output: {
+					beautify: false,
+					preamble: preamble
+				}
+			})
+		],
+		watch: {
+			clearScreen: false
+		}
 	}
-};
+];
 
 function serve() {
 	let started = false;
